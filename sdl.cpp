@@ -1,22 +1,3 @@
-/***************************************************************************
- *   Copyright (C) 2009-2013 by Veselin Georgiev, Slavomir Kaslev et al    *
- *   admin@raytracing-bg.net                                               *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
 #include <SDL.h>
 #include <stdio.h>
 #include "sdl.h"
@@ -94,54 +75,6 @@ void displayVFB(Color vfb[VFB_MAX_SIZE][VFB_MAX_SIZE])
 
 	//SDL_Flip(old_screen);
 }
-
-void displayVFBB(Color vfb[VFB_MAX_SIZE][VFB_MAX_SIZE])
-{
-	SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-    SDL_RenderClear( renderer );
-
-    // Show the window
-//    SDL_RenderPresent( renderer );
-
-    for ( int y=0; y<480; y++)
-    {
-        for (int x=0; x<640; x++)
-        {
-			//cout << vfb[y][x].r << vfb[y][x].g << vfb[y][x].b << endl;
-            //set the color of the pixel. The color is first converted to 0..1 range, and then multiplied to 255 to convert it to 0..255 range
-            SDL_SetRenderDrawColor(renderer, vfb[y][x].r*255, vfb[y][x].g*255, vfb[y][x].b*255, 255);
-
-            //draw the pixel over the window/screen
-            SDL_RenderDrawPoint(renderer, x, y);
-
-        }
-    }
-
-    SDL_RenderPresent( renderer );
-}
-
-//void displayVFBB(void)
-//{
-//	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-//	SDL_RenderClear(renderer);
-//
-//	// Show the window
-////    SDL_RenderPresent( renderer );
-//
-//	for (int y = 0; y < 480; y++)
-//	{
-//		for (int x = 0; x < 640; x++)
-//		{
-//			//set the color of the pixel. The color is first converted to 0..1 range, and then multiplied to 255 to convert it to 0..255 range
-//			SDL_SetRenderDrawColor(renderer, (x / 640.0) * 255, (y / 480.0) * 255, 0, 255);
-//			//draw the pixel over the window/screen
-//			SDL_RenderDrawPoint(renderer, x, y);
-//
-//		}
-//	}
-//
-//	SDL_RenderPresent(renderer);
-//}
 
 
 /// waits the user to indicate he wants to close the application (by either clicking on the "X" of the window,

@@ -41,20 +41,28 @@ vector<Node*> nodes;
 
 Color raytrace(Ray ray)
 {
-	
+
 	IntersectionData data;
 	Node* closestNode = NULL;
 	data.dist = 1e99;
 
 	for (int i = 0; i < (int)nodes.size(); i++)
 	{
-		if (nodes[i]->geom->intersect(ray, data));
-		closestNode = nodes[i];
+		if (nodes[i]->geom->intersect(ray, data))
+		{
+			closestNode = nodes[i];
+		}
+
 	}
 
-	if (!closestNode) return Color(0, 0, 0);		//if there is no closestNode, we hit the background
-
-	return closestNode->shader->shade(ray, data);	//if there is closestNode, calculate it's material
+	if (!closestNode)
+	{
+		return Color(0.5, 0.5, 0.5);		//if there is no closestNode, we hit the background
+	}
+	else
+	{
+		return closestNode->shader->shade(ray, data);	//if there is closestNode, calculate it's material
+	}
 
 		//return Color(1, 1, 1);
 	
@@ -90,10 +98,11 @@ void initializeScene(void)
 	lightColor = Color(1, 1, 1);
 	lightPower = 1000000;
 
+
 	Sphere* sphere = new Sphere(Vector(-100, 40, 500), 50);
 	geometries.push_back(sphere);
 
-	CheckerShader* checker_2 = new CheckerShader(Color(0, 1, 0), Color(0, 1, 0), 50);
+	CheckerShader* checker_2 = new CheckerShader(Color(0, 1, 0), Color(0, 0, 1), 50);
 	Node* sphere_node = new Node(sphere, checker_2);
 
 	shaders.push_back(checker_2);
@@ -103,12 +112,14 @@ void initializeScene(void)
 	Plane* plane = new Plane(2);
 	geometries.push_back(plane);
 	
-	CheckerShader* checker = new CheckerShader(Color(1, 1, 1), Color(0, 0, 1), 50);
+	CheckerShader* checker = new CheckerShader(Color(1, 0, 0), Color(0, 0, 1), 50);
 	Node* floor = new Node(plane, checker);
 	
 	shaders.push_back(checker);
 	nodes.push_back(floor);
 
+
+	
 	
 
 }

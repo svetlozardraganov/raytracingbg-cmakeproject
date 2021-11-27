@@ -48,7 +48,7 @@ Color CheckerShader::shade(Ray ray, const IntersectionData& data)
 	int white = (x + y) % 2;
 	Color result = white ? color2 : color;
 	
-	result = result * lightColor * lightPower / (data.p - lightPos).lengthSqr();
+	result = result * lightColor * lightPower/(data.p - lightPos).lengthSqr();
 	Vector lightDir = lightPos - data.p;
 	lightDir.normalize();
 	

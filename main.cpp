@@ -94,9 +94,11 @@ void initializeScene(void)
 
 	Plane* plane = new Plane(2);
 	//geometries.push_back(plane);
-	
-	CheckerShader* checker = new CheckerShader(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 50);
-	Node* floor = new Node(plane, checker);
+
+	Checker* checker = new Checker(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 50);
+	Lambert* lambert = new Lambert(Color(1, 1, 1), checker);
+
+	Node* floor = new Node(plane, lambert);
 	
 	//shaders.push_back(checker);
 	nodes.push_back(floor);
@@ -121,8 +123,10 @@ void initializeScene(void)
 		float rand5 = (float)rand() / (float)(RAND_MAX);
 		float rand6 = (float)rand() / (float)(RAND_MAX);
 
-		createNode(new Sphere(Vector(-150, 50, 250*i), 50), new CheckerShader(Color(rand1, rand2, rand3), Color(0.85, 0.85, 0.85), 0.1));
-		createNode(new Sphere(Vector(150, 50, 250 * i), 50), new CheckerShader(Color(rand4, rand5, rand6), Color(0.35, 0.35, 0.35), 0.1));
+		//Checker* checker_spheres = new Checker(Color(rand1, rand2, rand3), Color(0.35, 0.35, 0.35), 0.05);
+
+		createNode(new Sphere(Vector(-150, 50, 250*i), 50), new Lambert(Color(rand1, rand2, rand3)));
+		createNode(new Sphere(Vector(150, 50, 250 * i), 50), new Lambert(Color(rand4, rand5, rand6)));
 	}
 
 }

@@ -24,7 +24,7 @@ Color raytrace(Ray ray)
 
 	IntersectionData data;
 	Node* closestNode = NULL;
-	data.dist = 1e99;
+	data.dist = 1e99; //innitial value for infinity distance
 
 	for (int i = 0; i < (int)nodes.size(); i++)
 	{
@@ -45,6 +45,27 @@ Color raytrace(Ray ray)
 
 }
 
+bool testVisibility(const Vector& from, const Vector& to)
+{
+	Ray ray;
+	ray.start = from;
+	ray.dir = to - from;
+	ray.dir.normalize();
+
+	IntersectionData temp;
+	temp.dist = (to - from).length();
+
+	for (int i = 0; i < (int)nodes.size(); i++)
+	{
+		if (nodes[i]->geom->intersect(ray, temp))
+		{
+			return false;
+		}
+	}
+
+	return true;
+		
+}
 
 void createNode(Geometry* geometry, Shader* shader)
 {
@@ -66,7 +87,7 @@ void initializeScene(void)
 
 	camera->beginFrame();
 
-	lightPos = Vector(0, 4000, 0);
+	lightPos = Vector(0, 4000, 2000);
 	lightColor = Color(1, 1, 1);
 	lightPower = 30000000;
 

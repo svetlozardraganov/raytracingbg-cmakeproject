@@ -33,8 +33,8 @@ Color vfb[VFB_MAX_SIZE][VFB_MAX_SIZE]; //!< virtual framebuffer
 
 Camera* camera;
 
-vector<Geometry*> geometries;
-vector<Shader*> shaders;
+//vector<Geometry*> geometries;
+//vector<Shader*> shaders;
 vector<Node*> nodes;
 
 
@@ -81,6 +81,13 @@ Color raytrace(Ray ray)
 //	return Color(0, 0, 0);
 //}
 
+void createNode(Geometry* geometry, Shader* shader)
+{
+	/*geometries.push_back(geometry);
+	shaders.push_back(shader);*/
+	Node* newNode = new Node(geometry, shader);
+	nodes.push_back(newNode);
+}
 
 void initializeScene(void)
 {
@@ -94,35 +101,38 @@ void initializeScene(void)
 
 	camera->beginFrame();
 
-	lightPos = Vector(0, 800, 750);
+	lightPos = Vector(0, 1800, 0);
 	lightColor = Color(1, 1, 1);
-	lightPower = 1000000;
-
-
-	Sphere* sphere = new Sphere(Vector(-100, 40, 500), 50);
-	geometries.push_back(sphere);
-
-	CheckerShader* checker_2 = new CheckerShader(Color(0, 1, 0), Color(0, 0, 1), 50);
-	Node* sphere_node = new Node(sphere, checker_2);
-
-	shaders.push_back(checker_2);
-	nodes.push_back(sphere_node);
+	lightPower = 5000000;
 
 
 	Plane* plane = new Plane(2);
-	geometries.push_back(plane);
+	//geometries.push_back(plane);
 	
-	CheckerShader* checker = new CheckerShader(Color(1, 0, 0), Color(0, 0, 1), 50);
+	CheckerShader* checker = new CheckerShader(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 50);
 	Node* floor = new Node(plane, checker);
 	
-	shaders.push_back(checker);
+	//shaders.push_back(checker);
 	nodes.push_back(floor);
 
 
+	//Sphere* sphere = new Sphere(Vector(-100, 50, 500), 50);
+	////geometries.push_back(sphere);
+
+	//CheckerShader* checker_2 = new CheckerShader(Color(0, 0.75, 0), Color(0.75, 0, 0), 0.1);
+	//Node* sphere_node = new Node(sphere, checker_2);
+
+	////shaders.push_back(checker_2);
+	//nodes.push_back(sphere_node);
 	
-	
+	for (int i = 1; i < 7; i++)
+	{
+		createNode(new Sphere(Vector(-150, 50, 250*i), 50), new CheckerShader(Color(0, 0.75, 0), Color(0.75, 0, 0), 0.1));
+		createNode(new Sphere(Vector(150, 50, 250 * i), 50), new CheckerShader(Color(0, 0.75, 0), Color(0.75, 0, 0), 0.1));
+	}
 
 }
+
 
 //void initializeScene(void)
 //{

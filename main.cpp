@@ -126,7 +126,7 @@ void initializeScene(void)
 		//Checker* checker_spheres = new Checker(Color(rand1, rand2, rand3), Color(0.35, 0.35, 0.35), 0.05);
 
 		createNode(new Sphere(Vector(-150, 50, 250*i), 50), new Lambert(Color(rand1, rand2, rand3)));
-		createNode(new Sphere(Vector(150, 50, 250 * i), 50), new Lambert(Color(rand4, rand5, rand6)));
+		createNode(new Sphere(Vector(150, 50, 250 * i), 50), new Phong(Color(rand4, rand5, rand6),40,1));
 	}
 
 }

@@ -1,6 +1,8 @@
 #include "geometry.h"
 #include "vector.h"
 #include "constants.h"
+#include <iostream>
+using namespace std;
 
 
 bool Plane::intersect(Ray ray, IntersectionData& data)
@@ -18,6 +20,49 @@ bool Plane::intersect(Ray ray, IntersectionData& data)
 		data.normal = Vector(0, 1, 0);
 		data.u = data.p.x;
 		data.v = data.p.z;
+		return true;
+	}
+}
+
+bool MyPlane::intersect(Ray ray, IntersectionData& data)
+{
+
+	Vector l_line_direction = ray.dir;
+	Vector l_0_point_on_line = ray.start;
+
+
+	if (dot(l_line_direction, n_plane_normal) == 0) //line perpendicular to plane
+	{
+		return false;
+	}
+
+	if (dot(p0_plane_point - l_0_point_on_line, n_plane_normal) == 0) //the plane contains the line
+	{
+		return false;
+	}
+
+	if (dot(l_line_direction, n_plane_normal) != 0) // line intersect the plane in point p
+	{
+		
+
+		float d = dot(p0_plane_point - l_0_point_on_line, n_plane_normal) / dot(l_line_direction, n_plane_normal);
+		if (d < 0) return false;
+
+		//cout << "d=" << d << endl;
+		data.p = l_0_point_on_line + d * l_line_direction;
+		data.normal = n_plane_normal;
+
+		float dist = (l_0_point_on_line - data.p).length();
+
+		if (dist > data.dist || dist<=0)//check if plane intercection point is closer to any previously calculated intercetion points
+		{
+			return false;
+		}
+
+		data.dist = dist;
+
+		//cout << "MyPlane::intersect=" << data.p.x << "," << data.p.y << "," << data.p.z << endl;
+
 		return true;
 	}
 }

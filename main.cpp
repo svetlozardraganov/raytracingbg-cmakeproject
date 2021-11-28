@@ -21,7 +21,6 @@ vector<Node*> nodes;
 
 Color raytrace(Ray ray)
 {
-
 	IntersectionData data;
 	Node* closestNode = NULL;
 	data.dist = 1e99; //innitial value for infinity distance
@@ -92,17 +91,22 @@ void initializeScene(void)
 	lightPower = 30000000;
 
 
-	Plane* plane = new Plane(2);
-	//geometries.push_back(plane);
+	//Plane* plane = new Plane(2);
+	////geometries.push_back(plane);
 
-	Checker* checker = new Checker(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 50);
-	Lambert* lambert = new Lambert(Color(1, 1, 1), checker);
+	//Checker* checker = new Checker(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 50);
+	//Lambert* lambert = new Lambert(Color(1, 1, 1), checker);
 
-	Node* floor = new Node(plane, lambert);
-	
-	//shaders.push_back(checker);
-	nodes.push_back(floor);
+	//Node* floor = new Node(plane, lambert);
+	//
+	////shaders.push_back(checker);
+	//nodes.push_back(floor);
 
+
+	MyPlane* my_plane = new MyPlane(Vector(0, 0, 0), Vector(0, 1, 0));
+	Phong* phong_my_plane = new Phong(Color(0, 0, 1), 40, 1);
+	Node* node_my_plane = new Node(my_plane, phong_my_plane);
+	nodes.push_back(node_my_plane);
 
 	//Sphere* sphere = new Sphere(Vector(-100, 50, 500), 50);
 	////geometries.push_back(sphere);
@@ -136,8 +140,12 @@ void renderScene(void)
 {
 	for (int y = 0; y < frameHeight(); y++)
 		for (int x = 0; x < frameWidth(); x++) {
-			Ray ray = camera->getScreenRay(x, y);
-			vfb[y][x] = raytrace(ray);
+			//if ((y == 10 && x == 320) || (y == 240 && x == 320) || (y == 470 && x == 320))
+			{
+				//cout << "[x]=" << x << "[y]=" << y << endl;
+				Ray ray = camera->getScreenRay(x, y);
+				vfb[y][x] = raytrace(ray);
+			}
 		}
 }
 

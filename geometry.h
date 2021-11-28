@@ -28,6 +28,20 @@ public:
 };
 
 
+class MyPlane : public Geometry {
+	Vector p0_plane_point;
+	Vector n_plane_normal;
+public:
+	MyPlane(Vector _p0_plane_point, Vector _n_plane_normal)
+	{
+		p0_plane_point = _p0_plane_point;
+		n_plane_normal = _n_plane_normal;
+	}
+
+	bool intersect(Ray ray, IntersectionData& data);
+};
+
+
 class Sphere : public Geometry {
 	Vector center;
 	double radius;

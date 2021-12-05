@@ -58,7 +58,7 @@ Color Phong::shade(Ray ray, const IntersectionData& data)
 	Color lightContrib(0, 0, 0);
 	Color specular(0, 0, 0);
 
-	if (testVisibility(data.p + data.normal * 1e-4, lightPos))
+	if (testVisibility(data.p + data.normal * 1e-3, lightPos))
 	{
 		Vector lightDir = lightPos - data.p;
 		lightDir.normalize();

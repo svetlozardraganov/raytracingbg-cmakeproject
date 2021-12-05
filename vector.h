@@ -113,6 +113,13 @@ inline Vector reflect(const Vector& ray, const Vector& norm)
 	return result;
 }
 
+inline Vector normalizing(const Vector& v) //my development
+{
+	double multiplier = 1.0 / v.length();
+	return Vector(v.x * multiplier, v.y * multiplier, v.z * multiplier);
+}
+
+
 
 struct Ray {
 	Vector start, dir;

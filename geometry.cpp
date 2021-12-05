@@ -26,7 +26,7 @@ bool Plane::intersect(Ray ray, IntersectionData& data)
 
 bool MyPlane::intersect(Ray ray, IntersectionData& data)
 {
-
+	//https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection
 	Vector l_line_direction = ray.dir;
 	Vector l_0_point_on_line = ray.start;
 
@@ -60,8 +60,38 @@ bool MyPlane::intersect(Ray ray, IntersectionData& data)
 		}
 
 		data.dist = dist;
+		data.u = data.p.x; //texture coordinates are not correct for planes not perpendicular to z-axis
+		data.v = data.p.z;
 
 		//cout << "MyPlane::intersect=" << data.p.x << "," << data.p.y << "," << data.p.z << endl;
+
+		//https://computergraphics.stackexchange.com/questions/8382/how-do-i-convert-a-hit-on-an-infinite-plane-to-uv-coordinates-for-texturing-in-a
+
+		//Vector a = n_plane_normal ^ Vector(1, 0, 0);
+		//Vector b = n_plane_normal ^ Vector(0, 1, 0);
+
+		//Vector max_ab = dot(a, a) < dot(b, b) ? b : a;
+
+		//Vector c = n_plane_normal ^ Vector(0, 0, 1);
+		//
+		//Vector result = dot(max_ab, max_ab) < dot(c, c) ? c : max_ab;
+		//data.u = result.normalize();
+		//data.v = n_plane_normal ^ data.u;
+
+		//https://gamedev.stackexchange.com/questions/172352/finding-texture-coordinates-for-plane
+		Vector N = normalizing(n_plane_normal);
+		Vector vector_basis_e1 = normalizing(N ^ Vector(1, 0, 0));
+
+		//If normal and (1,0,0) are parallel, change e1
+		if (vector_basis_e1.x == 1 && vector_basis_e1.y == 0 && vector_basis_e1.z == 0)
+		{
+			vector_basis_e1 = normalizing(N ^ Vector(0, 0, 1));
+		}
+
+		Vector vector_basis_e2 = normalizing(N ^ vector_basis_e1);
+		data.u = dot(vector_basis_e1, data.p);
+		data.v = dot(vector_basis_e2, data.p);
+
 
 		return true;
 	}

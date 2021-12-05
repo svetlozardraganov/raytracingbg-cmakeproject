@@ -94,7 +94,7 @@ void initializeScene(void)
 	//Plane* plane = new Plane(2);
 	////geometries.push_back(plane);
 
-	//Checker* checker = new Checker(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 50);
+	Checker* checker = new Checker(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 50);
 	//Lambert* lambert = new Lambert(Color(1, 1, 1), checker);
 
 	//Node* floor = new Node(plane, lambert);
@@ -103,10 +103,15 @@ void initializeScene(void)
 	//nodes.push_back(floor);
 
 
-	MyPlane* my_plane = new MyPlane(Vector(0, 0, 0), Vector(0, 1, 0));
-	Phong* phong_my_plane = new Phong(Color(0, 0, 1), 40, 1);
+	MyPlane* my_plane = new MyPlane(Vector(0, 0, 0), Vector(0.1, 1, 0));
+	Phong* phong_my_plane = new Phong(Color(0, 0, 1), 40, 1, checker);
 	Node* node_my_plane = new Node(my_plane, phong_my_plane);
 	nodes.push_back(node_my_plane);
+
+	MyPlane* my_plane_2 = new MyPlane(Vector(0, 0, 5000), Vector(0, 0, -1));
+	Phong* phong_my_plane_2 = new Phong(Color(0, 0, 1), 40, 1, checker);
+	Node* node_my_plane_2 = new Node(my_plane_2, phong_my_plane_2);
+	nodes.push_back(node_my_plane_2);
 
 	//Sphere* sphere = new Sphere(Vector(-100, 50, 500), 50);
 	////geometries.push_back(sphere);

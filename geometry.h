@@ -42,11 +42,57 @@ public:
 };
 
 
+class MyDisk : public Geometry {
+	Vector p0_plane_point;
+	Vector n_plane_normal;
+	double radius;
+public:
+	MyDisk(Vector _p0_plane_point, Vector _n_plane_normal, double _radius)
+	{
+		p0_plane_point = _p0_plane_point;
+		n_plane_normal = _n_plane_normal;
+		radius = _radius;
+	}
+
+	bool intersect(Ray ray, IntersectionData& data);
+};
+
+class MySquare : public Geometry {
+	Vector p0_plane_point;
+	Vector n_plane_normal;
+	double side;
+public:
+	MySquare(Vector _p0_plane_point, Vector _n_plane_normal, double _side)
+	{
+		p0_plane_point = _p0_plane_point;
+		n_plane_normal = _n_plane_normal;
+		side = _side;
+	}
+
+	bool intersect(Ray ray, IntersectionData& data);
+};
+
+
 class Sphere : public Geometry {
 	Vector center;
 	double radius;
 public:
 	Sphere(Vector _center, double _radius)
+	{
+		center = _center;
+		radius = _radius;
+	}
+
+	bool intersect(Ray ray, IntersectionData& data);
+};
+
+
+
+class MySphere : public Geometry {
+	Vector center;
+	double radius;
+public:
+	MySphere(Vector _center, double _radius)
 	{
 		center = _center;
 		radius = _radius;

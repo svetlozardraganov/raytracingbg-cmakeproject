@@ -61,7 +61,7 @@ bool testVisibility(const Vector& from, const Vector& to)
 			return false;
 		}
 	}
-
+	
 	return true;
 		
 }
@@ -91,27 +91,58 @@ void initializeScene(void)
 	lightPower = 30000000;
 
 
-	//Plane* plane = new Plane(2);
+	Plane* plane = new Plane(2);
 	////geometries.push_back(plane);
 
-	Checker* checker = new Checker(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 50);
+	Checker* checker = new Checker(Color(0.95, 0.95, 0.95), Color(0.35, 0.35, 0.35), 100);
+	Checker* checker2 = new Checker(Color(0.95, 0.95, 0.95), Color(0.25, 0.25, 0.95), 100);
 	//Lambert* lambert = new Lambert(Color(1, 1, 1), checker);
 
 	//Node* floor = new Node(plane, lambert);
-	//
-	////shaders.push_back(checker);
+	
+	//shaders.push_back(checker);
 	//nodes.push_back(floor);
 
 
-	MyPlane* my_plane = new MyPlane(Vector(0, 0, 0), Vector(0.1, 1, 0));
-	Phong* phong_my_plane = new Phong(Color(0, 0, 1), 40, 1, checker);
-	Node* node_my_plane = new Node(my_plane, phong_my_plane);
-	nodes.push_back(node_my_plane);
+	//MyPlane* my_plane = new MyPlane(Vector(0, 0, 0), Vector(0.1, 1, 0));
+	//Phong* phong_my_plane = new Phong(Color(0, 0, 1), 40, 1, checker);
+	////Lambert* phong_my_plane = new Lambert(Color(0.8, 0.2, 0.2));
+	//Node* node_my_plane = new Node(my_plane, phong_my_plane);
+	//nodes.push_back(node_my_plane);
 
-	MyPlane* my_plane_2 = new MyPlane(Vector(0, 0, 5000), Vector(0, 0, -1));
-	Phong* phong_my_plane_2 = new Phong(Color(0, 0, 1), 40, 1, checker);
-	Node* node_my_plane_2 = new Node(my_plane_2, phong_my_plane_2);
-	nodes.push_back(node_my_plane_2);
+	//MyPlane* my_plane_2 = new MyPlane(Vector(0, 0, 8000), Vector(0, 0, -1));
+	//Phong* phong_my_plane_2 = new Phong(Color(0, 0, 1), 40, 1, checker2);
+	//Node* node_my_plane_2 = new Node(my_plane_2, phong_my_plane_2);
+	//nodes.push_back(node_my_plane_2);
+
+
+	//MyDisk* my_disk = new MyDisk(Vector(0, 0, 750), Vector(0, 1, 0), 550);
+	//Checker* my_disk_checker = new Checker(Color(0.95, 0.15, 0.15), Color(0.15, 0.95, 0.15), 15);
+	//Phong* phong_my_disk = new Phong(Color(0, 0, 1), 40, 1, my_disk_checker);
+	//Node* node_my_disk = new Node(my_disk, phong_my_disk);
+	//nodes.push_back(node_my_disk);
+
+	//MyDisk* my_disk_2 = new MyDisk(Vector(0, 50, 550), Vector(0, 1, 0), 100);
+	//Lambert* phong_my_disk_2 = new Lambert(Color(0.8, 0.2, 0.2));
+	//Node* node_my_disk_2 = new Node(my_disk_2, phong_my_disk_2);
+	//nodes.push_back(node_my_disk_2);
+
+
+	//MySquare* my_square = new MySquare(Vector(0, 0, 400), Vector(0, 0, 1), 100);
+	//Checker* my_square_checker = new Checker(Color(0.95, 0.15, 0.15), Color(0.15, 0.95, 0.15), 100);
+	//Phong* phong_my_square = new Phong(Color(0, 0, 1), 40, 1, my_square_checker);
+	//Node* node_my_square = new Node(my_square, phong_my_square);
+	//nodes.push_back(node_my_square);
+
+	MySphere* my_sphere = new MySphere(Vector(0, 0, 400), 50);
+	Phong* phong_my_sphere = new Phong(Color(0, 0, 1), 40, 1);
+	Node* node_my_sphere = new Node(my_sphere, phong_my_sphere);
+	nodes.push_back(node_my_sphere);
+
+	MySphere* my_sphere_2 = new MySphere(Vector(50, 0, 400), 50);
+	Phong* phong_my_sphere_2 = new Phong(Color(1, 0, 0), 40, 1);
+	Node* node_my_sphere_2 = new Node(my_sphere_2, phong_my_sphere_2);
+	nodes.push_back(node_my_sphere_2);
 
 	//Sphere* sphere = new Sphere(Vector(-100, 50, 500), 50);
 	////geometries.push_back(sphere);
@@ -123,20 +154,20 @@ void initializeScene(void)
 	//nodes.push_back(sphere_node);
 	
 	//Create sphere objects dynamically
-	for (int i = 1; i < 7; i++)
-	{
-		float rand1 = (float)rand() / (float)(RAND_MAX);
-		float rand2 = (float)rand() / (float)(RAND_MAX);
-		float rand3 = (float)rand() / (float)(RAND_MAX);
-		float rand4 = (float)rand() / (float)(RAND_MAX);
-		float rand5 = (float)rand() / (float)(RAND_MAX);
-		float rand6 = (float)rand() / (float)(RAND_MAX);
+	//for (int i = 1; i < 7; i++)
+	//{
+	//	float rand1 = (float)rand() / (float)(RAND_MAX);
+	//	float rand2 = (float)rand() / (float)(RAND_MAX);
+	//	float rand3 = (float)rand() / (float)(RAND_MAX);
+	//	float rand4 = (float)rand() / (float)(RAND_MAX);
+	//	float rand5 = (float)rand() / (float)(RAND_MAX);
+	//	float rand6 = (float)rand() / (float)(RAND_MAX);
 
-		//Checker* checker_spheres = new Checker(Color(rand1, rand2, rand3), Color(0.35, 0.35, 0.35), 0.05);
+	//	//Checker* checker_spheres = new Checker(Color(rand1, rand2, rand3), Color(0.35, 0.35, 0.35), 0.05);
 
-		createNode(new Sphere(Vector(-150, 50, 250*i), 50), new Lambert(Color(rand1, rand2, rand3)));
-		createNode(new Sphere(Vector(150, 50, 250 * i), 50), new Phong(Color(rand4, rand5, rand6),40,1));
-	}
+	//	createNode(new Sphere(Vector(-150, 50, 250*i), 50), new Lambert(Color(rand1, rand2, rand3)));
+	//	createNode(new Sphere(Vector(150, 50, 250 * i), 50), new Phong(Color(rand4, rand5, rand6),40,1));
+	//}
 
 }
 
@@ -145,7 +176,10 @@ void renderScene(void)
 {
 	for (int y = 0; y < frameHeight(); y++)
 		for (int x = 0; x < frameWidth(); x++) {
-			//if ((y == 10 && x == 320) || (y == 240 && x == 320) || (y == 470 && x == 320))
+			//if ((y < 380 && y > 300 && x < 320 && x > 318))
+			//if ((y < 320 && y > 318 && x < 640 && x > 0)) //horizontal line rendering
+			//if ((y < 377 && y > 299 && x < 320 && x > 318)) //vertical line rendering
+			//if ((y < 480 && y > 0 && x < 320 && x > 318)) //vertical line rendering
 			{
 				//cout << "[x]=" << x << "[y]=" << y << endl;
 				Ray ray = camera->getScreenRay(x, y);

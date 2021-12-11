@@ -1,8 +1,11 @@
 #include "shading.h"
+#include <iostream>
+using namespace std;
 
 Vector lightPos;
 Color lightColor;
 float lightPower;
+
 
 extern bool testVisibility(const Vector& from, const Vector& to);
 
@@ -32,7 +35,7 @@ Color Lambert::shade(Ray ray, const IntersectionData& data)
 
 	Color lightContrib(0, 0, 0);
 
-	if (testVisibility(data.p + data.normal * 1e-6, lightPos))
+	if (testVisibility(data.p + data.normal * 1e-4, lightPos))
 	{
 		Vector lightDir = lightPos - data.p;
 		lightDir.normalize();
@@ -58,9 +61,10 @@ Color Phong::shade(Ray ray, const IntersectionData& data)
 	Color lightContrib(0, 0, 0);
 	Color specular(0, 0, 0);
 
-	if (testVisibility(data.p + data.normal * 1e-3, lightPos))
+	if (testVisibility(data.p + data.normal * 1e-5, lightPos))
 	{
 		Vector lightDir = lightPos - data.p;
+		//cout << "lightDir[x,y,z]=" << lightDir.x << "," << lightDir.y << "," << lightDir.z << endl;
 		lightDir.normalize();
 
 		double cosTheta = dot(lightDir, data.normal);

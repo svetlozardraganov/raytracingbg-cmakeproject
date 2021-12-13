@@ -102,6 +102,36 @@ public:
 };
 
 
+class MyElipse : public Geometry {
+	Vector center;
+	double radius;
+	double m; // ratio of x-semiaxis lenght to the y-semiaxist lenght
+	double n; // ratio of x-semiaxis lenght to the z-semiaxist lenght
+public:
+	MyElipse(Vector _center, double _radius, double _m, double _n) {
+		center = _center;
+		radius = _radius;
+		m = _m;
+		n = _n;
+	}
+
+	bool intersect(Ray ray, IntersectionData& data);
+};
+
+
+
+class MyCube:public Geometry {
+	Vector center;
+	double side;
+public:
+	MyCube(Vector _center, double _side) {
+		center = _center;
+		side = _side;
+	}
+
+	bool intersect(Ray ray, IntersectionData& data);
+};
+
 class Shader;
 
 class Node {

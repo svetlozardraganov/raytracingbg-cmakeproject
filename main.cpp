@@ -134,15 +134,25 @@ void initializeScene(void)
 	//Node* node_my_square = new Node(my_square, phong_my_square);
 	//nodes.push_back(node_my_square);
 
-	MySphere* my_sphere = new MySphere(Vector(0, 0, 400), 50);
-	Phong* phong_my_sphere = new Phong(Color(0, 0, 1), 40, 1);
-	Node* node_my_sphere = new Node(my_sphere, phong_my_sphere);
-	nodes.push_back(node_my_sphere);
+	//MySphere* my_sphere = new MySphere(Vector(0, 0, 400), 50);
+	//Phong* phong_my_sphere = new Phong(Color(0, 0, 1), 40, 1);
+	//Node* node_my_sphere = new Node(my_sphere, phong_my_sphere);
+	//nodes.push_back(node_my_sphere);
 
-	MySphere* my_sphere_2 = new MySphere(Vector(50, 0, 400), 50);
-	Phong* phong_my_sphere_2 = new Phong(Color(1, 0, 0), 40, 1);
-	Node* node_my_sphere_2 = new Node(my_sphere_2, phong_my_sphere_2);
-	nodes.push_back(node_my_sphere_2);
+	//MySphere* my_sphere_2 = new MySphere(Vector(50, 0, 400), 50);
+	//Phong* phong_my_sphere_2 = new Phong(Color(1, 0, 0), 40, 1);
+	//Node* node_my_sphere_2 = new Node(my_sphere_2, phong_my_sphere_2);
+	//nodes.push_back(node_my_sphere_2);
+
+	//MyCube* my_cube = new MyCube(Vector(0, 0, 400), 50);
+	//Phong* phong_my_cube = new Phong(Color(1, 0, 0), 40, 1);
+	//Node* node_my_cube = new Node(my_cube, phong_my_cube);
+	//nodes.push_back(node_my_cube);
+
+	MyElipse* my_elipse = new MyElipse(Vector(0, 0, 400), 50, 0.5, 1);
+	Phong* phong_my_elipse = new Phong(Color(1, 0, 0), 40, 1);
+	Node* node_my_elipse = new Node(my_elipse, phong_my_elipse);
+	nodes.push_back(node_my_elipse);
 
 	//Sphere* sphere = new Sphere(Vector(-100, 50, 500), 50);
 	////geometries.push_back(sphere);
@@ -180,6 +190,8 @@ void renderScene(void)
 			//if ((y < 320 && y > 318 && x < 640 && x > 0)) //horizontal line rendering
 			//if ((y < 377 && y > 299 && x < 320 && x > 318)) //vertical line rendering
 			//if ((y < 480 && y > 0 && x < 320 && x > 318)) //vertical line rendering
+			//if ((y < 320 && y > 318 && x < 280 && x > 278)) //vertical line rendering
+
 			{
 				//cout << "[x]=" << x << "[y]=" << y << endl;
 				Ray ray = camera->getScreenRay(x, y);

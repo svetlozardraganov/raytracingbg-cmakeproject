@@ -275,6 +275,48 @@ bool Sphere::intersect(Ray ray, IntersectionData& data)
 	return true;
 }
 
+bool MyElipse::intersect(Ray ray, IntersectionData& data) {
+	//Page 144 Mathematics for 3D game programming and computer graphics
+
+	Vector H = ray.start - center;
+
+	double a = ray.dir.x * ray.dir.x + m * m * ray.dir.y * ray.dir.y + n * n * ray.dir.z * ray.dir.z;
+
+	double b = 2 * (ray.dir.x * H.x + m * m * ray.dir.y * H.y + n * n * ray.dir.z * H.z);
+	double c = H.x * H.x + m * m * H.y * H.y + n * n * H.z * H.z - radius * radius;
+	//quadratic equation a*x*x + b*x + c = 0
+	double Discriminant = b * b - 4 * a * c;
+
+	if (Discriminant < 0)
+	{
+		return false; // no solutions to the quadratic equation
+	}
+
+	double x1 = (-b - sqrt(Discriminant)) / 2 * a;
+	double x2 = (-b + sqrt(Discriminant)) / 2 * a;
+
+	double solution = x1; //get the closed of the two solutions
+	if (solution < 0)
+	{
+		solution = x2; //get the other solution since the first one is < 0
+	}
+	if (solution < 0)
+	{
+		return false; // both solutions are < 0 hence the intersection point is behind the camera
+	}
+
+	if (solution > data.dist) return false; //check if the intersection point is closer to previous closest intersection point
+
+	data.dist = solution;
+	data.p = ray.start + ray.dir * solution;
+	data.normal = data.p - center;
+	data.normal.normalize();
+
+	data.u = (PI + atan2(data.p.z - center.z, data.p.x - center.x)) / (2 * PI);
+	data.v = 1.0 - (PI / 2 + asin((data.p.y - center.y) / radius)) / PI;
+	return true;
+}
+
 
 bool MySphere::intersect(Ray ray, IntersectionData& data)
 {
@@ -307,6 +349,69 @@ bool MySphere::intersect(Ray ray, IntersectionData& data)
 
 	
 
+
+
+}
+
+bool MyCube::intersect(Ray ray, IntersectionData& data) {
+
+	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-box-intersection
+	// 
+	//define cube bouding box
+	double x_min = center.x - side; //bounding box minimum x-value
+	double x_max = center.x + side; //bounding box maximum x-value
+
+	double tmin = (x_min - ray.start.x) / ray.dir.x; //cube x-minimum intersection point
+	double tmax = (x_max - ray.start.x) / ray.dir.x; //cube x-maximum intersection point
+	
+
+	if (tmin > tmax) {
+		swap(tmin, tmax);
+	}
+
+	
+	///////////////////////////////////////////////////////////////////////////////////////
+
+	double y_min = center.y - side; //bounding box minimum y-value
+	double y_max = center.y + side; //bounding box maximum y-value
+
+	double tymin = (y_min - ray.start.y) / ray.dir.y; //cube y-minimum intersection point
+	double tymax = (y_max - ray.start.y) / ray.dir.y; //cube y-maximum intersection point
+
+	if (tymin > tymax) swap(tymin, tymax);
+
+	if ((tmin > tymax) || (tymin > tmax))
+		return false;
+
+	if (tymin > tmin)
+		tmin = tymin;
+
+	if (tymax < tmax)
+		tmax = tymax;
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	
+	double z_min = center.z - side; //bounding box minimum z-value
+	double z_max = center.z + side; //bounding box maximum z-value
+
+	
+	double tzmin = (z_min - ray.start.z) / ray.dir.z;	//cube z-minimum intersection point
+	double tzmax = (z_max - ray.start.z) / ray.dir.z;	//cube z-maximum intersection point
+
+	
+	if (tzmin > tzmax) swap(tzmin, tzmax);
+
+	if ((tmin > tzmax) || (tzmin > tmax))
+		return false;
+
+	if (tzmin > tmin)
+		tmin = tzmin;
+
+	if (tzmax < tmax)
+		tmax = tzmax;
+		
+
+	return true;
 
 
 }

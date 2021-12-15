@@ -318,6 +318,51 @@ bool MyElipse::intersect(Ray ray, IntersectionData& data) {
 }
 
 
+bool MyCylinder::intersect(Ray ray, IntersectionData& data) {
+	Vector S = ray.start-center;
+	Vector V = ray.dir;
+
+	double a = V.x * V.x + V.z * V.z;
+	double b = 2*(S.x * V.x + S.z * V.z);
+	double c = S.x * S.x + S.z * S.z - radius * radius;
+
+	double Discriminant = b * b - 4 * a * c;
+
+	if (Discriminant < 0)
+	{
+		return false; // no solutions to the quadratic equation
+	}
+
+	double x1 = (-b - sqrt(Discriminant)) / 2 * a;
+	double x2 = (-b + sqrt(Discriminant)) / 2 * a;
+
+	double solution = x1; //get the closed of the two solutions
+	if (solution < 0)
+	{
+		solution = x2; //get the other solution since the first one is < 0
+	}
+	if (solution < 0)
+	{
+		return false; // both solutions are < 0 hence the intersection point is behind the camera
+	}
+
+	if (solution > data.dist) return false; //check if the intersection point is closer to previous closest intersection point
+
+	data.dist = solution;
+	data.p = ray.start + ray.dir * solution;
+
+	if (data.p.y > height || data.p.y < 0) return false; //check cylinder height 
+
+	data.normal = Vector(data.p.x - center.x, 0, data.p.z - center.z);
+	data.normal.normalize();
+
+	return true;
+
+
+
+
+}
+
 bool MySphere::intersect(Ray ray, IntersectionData& data)
 {
 	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection

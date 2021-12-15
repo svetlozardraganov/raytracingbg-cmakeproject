@@ -77,16 +77,57 @@ void createNode(Geometry* geometry, Shader* shader)
 void initializeScene(void)
 {
 	camera = new Camera;
-	camera->yaw = 0;
-	camera->pitch = -10;
+
+	////Cam1 - default one - from the front
+	//camera->yaw = 0;
+	//camera->roll = 0;
+	//camera->fov = 90;
+	//camera->aspect = 4. / 3.0;
+	//camera->pitch = -10;
+	//camera->pos = Vector(0,165,0);
+
+	////Cam2 - from the top
+	//camera->yaw = 0;
+	//camera->roll = 0;
+	//camera->fov = 90;
+	//camera->aspect = 4. / 3.0;
+	//camera->pitch = -50;
+	//camera->pos = Vector(0, 550, 0);
+
+	////Cam3 - from the left side
+	//camera->yaw = -90;
+	//camera->roll = 0;
+	//camera->fov = 90;
+	//camera->aspect = 4. / 3.0;
+	//camera->pitch = -25;
+	//camera->pos = Vector(-750, 250, 650);
+
+	////Cam4 - looking at 0,0,0
+	//camera->yaw = 0;
+	//camera->roll = 0;
+	//camera->fov = 90;
+	//camera->aspect = 4. / 3.0;
+	//camera->pitch = -10;
+	//camera->pos = Vector(0, 165, -500);
+
+	//Cam5 - looking back
+	camera->yaw = 180;
 	camera->roll = 0;
 	camera->fov = 90;
 	camera->aspect = 4. / 3.0;
-	camera->pos = Vector(0,165,0);
+	camera->pitch = -10;
+	camera->pos = Vector(0, 165, 800);
+
 
 	camera->beginFrame();
 
-	lightPos = Vector(0, 4000, 2000);
+	////Light1
+	//lightPos = Vector(0, 4000, 2000);
+	//lightColor = Color(1, 1, 1);
+	//lightPower = 30000000;
+
+	//Light2
+	lightPos = Vector(-2000, 4000, 2000);
 	lightColor = Color(1, 1, 1);
 	lightPower = 30000000;
 
@@ -104,11 +145,11 @@ void initializeScene(void)
 	//nodes.push_back(floor);
 
 
-	//MyPlane* my_plane = new MyPlane(Vector(0, 0, 0), Vector(0.1, 1, 0));
-	//Phong* phong_my_plane = new Phong(Color(0, 0, 1), 40, 1, checker);
-	////Lambert* phong_my_plane = new Lambert(Color(0.8, 0.2, 0.2));
-	//Node* node_my_plane = new Node(my_plane, phong_my_plane);
-	//nodes.push_back(node_my_plane);
+	MyPlane* my_plane = new MyPlane(Vector(0, 0, 0), Vector(0, 1, 0));
+	Phong* phong_my_plane = new Phong(Color(0, 0, 1), 40, 1, checker);
+	//Lambert* phong_my_plane = new Lambert(Color(0.8, 0.2, 0.2));
+	Node* node_my_plane = new Node(my_plane, phong_my_plane);
+	nodes.push_back(node_my_plane);
 
 	//MyPlane* my_plane_2 = new MyPlane(Vector(0, 0, 8000), Vector(0, 0, -1));
 	//Phong* phong_my_plane_2 = new Phong(Color(0, 0, 1), 40, 1, checker2);
@@ -149,10 +190,15 @@ void initializeScene(void)
 	//Node* node_my_cube = new Node(my_cube, phong_my_cube);
 	//nodes.push_back(node_my_cube);
 
-	MyElipse* my_elipse = new MyElipse(Vector(0, 0, 400), 50, 0.5, 1);
+	MyElipse* my_elipse = new MyElipse(Vector(-350, 100, 650), 50, 0.65, 1);
 	Phong* phong_my_elipse = new Phong(Color(1, 0, 0), 40, 1);
 	Node* node_my_elipse = new Node(my_elipse, phong_my_elipse);
 	nodes.push_back(node_my_elipse);
+
+	MyCylinder* my_cylinder = new MyCylinder(Vector(0, 0, 0), 75, 250);
+	Phong* phong_my_cylinder = new Phong(Color(0, 1, 0), 40, 1);
+	Node* node_my_cylinder = new Node(my_cylinder, phong_my_cylinder);
+	nodes.push_back(node_my_cylinder);
 
 	//Sphere* sphere = new Sphere(Vector(-100, 50, 500), 50);
 	////geometries.push_back(sphere);
@@ -164,20 +210,20 @@ void initializeScene(void)
 	//nodes.push_back(sphere_node);
 	
 	//Create sphere objects dynamically
-	//for (int i = 1; i < 7; i++)
-	//{
-	//	float rand1 = (float)rand() / (float)(RAND_MAX);
-	//	float rand2 = (float)rand() / (float)(RAND_MAX);
-	//	float rand3 = (float)rand() / (float)(RAND_MAX);
-	//	float rand4 = (float)rand() / (float)(RAND_MAX);
-	//	float rand5 = (float)rand() / (float)(RAND_MAX);
-	//	float rand6 = (float)rand() / (float)(RAND_MAX);
+	for (int i = 1; i < 7; i++)
+	{
+		float rand1 = (float)rand() / (float)(RAND_MAX);
+		float rand2 = (float)rand() / (float)(RAND_MAX);
+		float rand3 = (float)rand() / (float)(RAND_MAX);
+		float rand4 = (float)rand() / (float)(RAND_MAX);
+		float rand5 = (float)rand() / (float)(RAND_MAX);
+		float rand6 = (float)rand() / (float)(RAND_MAX);
 
-	//	//Checker* checker_spheres = new Checker(Color(rand1, rand2, rand3), Color(0.35, 0.35, 0.35), 0.05);
+		//Checker* checker_spheres = new Checker(Color(rand1, rand2, rand3), Color(0.35, 0.35, 0.35), 0.05);
 
-	//	createNode(new Sphere(Vector(-150, 50, 250*i), 50), new Lambert(Color(rand1, rand2, rand3)));
-	//	createNode(new Sphere(Vector(150, 50, 250 * i), 50), new Phong(Color(rand4, rand5, rand6),40,1));
-	//}
+		createNode(new Sphere(Vector(-150, 50, 250*i), 50), new Lambert(Color(rand1, rand2, rand3)));
+		createNode(new Sphere(Vector(150, 50, 250 * i), 50), new Phong(Color(rand4, rand5, rand6),40,1));
+	}
 
 }
 

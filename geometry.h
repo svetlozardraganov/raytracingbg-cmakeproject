@@ -119,6 +119,20 @@ public:
 };
 
 
+class MyCylinder : public Geometry {
+	Vector center;
+	double radius;
+	double height;
+public:
+	MyCylinder(Vector _center, double _radius, double _height) {
+		center = _center;
+		radius = _radius;
+		height = _height;
+	}
+
+	bool intersect(Ray ray, IntersectionData& data);
+};
+
 
 class MyCube:public Geometry {
 	Vector center;

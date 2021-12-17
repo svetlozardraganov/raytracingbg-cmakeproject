@@ -319,6 +319,8 @@ bool MyElipse::intersect(Ray ray, IntersectionData& data) {
 
 
 bool MyCylinder::intersect(Ray ray, IntersectionData& data) {
+	//Page 145 Mathematics for 3D game programming and computer graphics
+
 	Vector S = ray.start-center;
 	Vector V = ray.dir;
 
